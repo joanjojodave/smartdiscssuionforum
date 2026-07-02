@@ -47,7 +47,6 @@ class Post extends Model
     public function isUnanswered(): bool
     {
         return $this->is_question
-            && ! $this->is_answer
             && ! $this->replies()->where('is_answer', true)->exists();
     }
 }

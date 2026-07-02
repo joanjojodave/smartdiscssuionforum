@@ -222,7 +222,6 @@ class DatabaseSeeder extends Seeder
             ]);
 
             if ($isAnswer) {
-                $question->update(['is_answer' => true]);
                 $topic->update(['is_resolved' => true]);
             }
         }

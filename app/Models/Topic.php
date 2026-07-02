@@ -39,7 +39,7 @@ class Topic extends Model
 
     public function hasUnansweredQuestions(): bool
     {
-        return $this->posts()->where('is_question', true)->where('is_answer', false)
+        return $this->posts()->where('is_question', true)
             ->whereDoesntHave('replies', fn ($q) => $q->where('is_answer', true))
             ->exists();
     }

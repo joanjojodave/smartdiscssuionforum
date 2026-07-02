@@ -33,7 +33,7 @@ class TopicController extends Controller
             'group_id' => $group->id,
             'created_by' => $request->user()->id,
             'title' => $data['title'],
-            'category' => $data['category'] ?: $classification['category'],
+            'category' => ($data['category'] ?? null) ?: $classification['category'],
             'ml_label' => $classification['category'],
         ]);
 

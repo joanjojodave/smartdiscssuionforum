@@ -27,3 +27,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Java desktop client
+desktop-client/target/
+desktop-client/*.log
+desktop-client/dependency-reduced-pom.xml

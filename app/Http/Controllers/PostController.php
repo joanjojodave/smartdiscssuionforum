@@ -62,9 +62,10 @@ class PostController extends Controller
 
         $topic->posts()->where('parent_post_id', $question->id)->update(['is_answer' => false]);
         $post->update(['is_answer' => true]);
-        $question->update(['is_answer' => true]);
 
-        if (! $topic->posts()->where('is_question', true)->where('is_answer', false)->exists()) {
+        if (! $topic->posts()->where('is_question', true)
+                ->whereDoesntHave('replies', fn ($q) => $q->where('is_answer', true))
+                ->exists()) {
             $topic->update(['is_resolved' => true]);
         }
 
