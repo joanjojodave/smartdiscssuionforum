@@ -8,7 +8,7 @@
             <div class="bg-white shadow-sm rounded-lg p-5">
                 <h3 class="font-semibold text-gray-700 mb-3">Membership status</h3>
                 <table class="w-full text-sm">
-                    <thead class="text-xs text-gray-400 uppercase text-left"><tr><th class="py-1">Member</th><th>Status</th><th>Warnings</th><th>Last active</th></tr></thead>
+                    <thead class="text-xs text-gray-400 uppercase text-left"><tr><th class="py-1">Member</th><th>Status</th><th>Warnings</th><th>Last active</th><th>Action</th></tr></thead>
                     <tbody class="divide-y">
                         @foreach ($memberships as $m)
                             <tr>
@@ -16,6 +16,25 @@
                                 <td>{{ ucfirst($m->status) }}</td>
                                 <td>{{ $m->warnings_count }}</td>
                                 <td>{{ $m->last_active_at?->diffForHumans() ?? 'never' }}</td>
+                                <td class="space-x-2 py-1">
+                                    @if (in_array($m->status, ['active', 'warned']))
+                                        <form method="POST" action="{{ route('admin.memberships.warn', $m) }}" class="inline">
+                                            @csrf
+                                            <button class="text-orange-600 text-xs hover:underline">Warn</button>
+                                        </form>
+                                        <form method="POST" action="{{ route('admin.memberships.blacklist', $m) }}" class="inline">
+                                            @csrf
+                                            <button class="text-red-600 text-xs hover:underline">Blacklist</button>
+                                        </form>
+                                    @elseif ($m->status === 'blacklisted')
+                                        <form method="POST" action="{{ route('admin.memberships.reinstate', $m) }}" class="inline">
+                                            @csrf
+                                            <button class="text-green-600 text-xs hover:underline">Reinstate</button>
+                                        </form>
+                                    @else
+                                        <span class="text-gray-300">&mdash;</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

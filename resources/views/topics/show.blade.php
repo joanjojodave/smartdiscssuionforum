@@ -3,7 +3,12 @@
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ $topic->title }}</h2>
-                <p class="text-xs text-gray-400">in <a href="{{ route('groups.show', $topic->group) }}" class="underline">{{ $topic->group->name }}</a> &middot; category: {{ $topic->category ?? $topic->ml_label }}</p>
+                <p class="text-xs text-gray-400 flex items-center gap-2">
+                    in <a href="{{ route('groups.show', $topic->group) }}" class="underline">{{ $topic->group->name }}</a>
+                    @if ($topic->category ?? $topic->ml_label)
+                        <span class="inline-flex px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium normal-case">{{ $topic->category ?? $topic->ml_label }}</span>
+                    @endif
+                </p>
             </div>
             <a href="{{ route('topics.export', $topic) }}" class="px-3 py-2 bg-white border text-sm rounded-md hover:bg-gray-50">Export PDF</a>
         </div>

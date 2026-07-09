@@ -31,8 +31,11 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::user()->isAdmin())
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Admin') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.members')" :active="request()->routeIs('admin.members')">
+                            {{ __('Members') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -135,8 +138,11 @@
                 </x-responsive-nav-link>
             @endif
             @if (Auth::user()->isAdmin())
-                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                     {{ __('Admin') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.members')" :active="request()->routeIs('admin.members')">
+                    {{ __('Members') }}
                 </x-responsive-nav-link>
             @endif
         </div>

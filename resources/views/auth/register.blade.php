@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <h2 class="text-lg font-semibold text-gray-800 mb-1">Create your account</h2>
+    <p class="text-sm text-gray-500 mb-6">Join to request access to your group's discussions.</p>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

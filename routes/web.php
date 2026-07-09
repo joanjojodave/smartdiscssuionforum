@@ -14,7 +14,11 @@ use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+
+    return view('welcome');
 })->name('home');
 
 Route::middleware('auth')->group(function () {
@@ -78,6 +82,7 @@ Route::middleware('auth')->group(function () {
     // ---- Admin area (requirements #4, #7) ----
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/members', [AdminController::class, 'members'])->name('members');
         Route::get('/groups/{group}/stats', [AdminController::class, 'groupStats'])->name('groups.stats');
         Route::get('/groups/{group}/flags', [AdminController::class, 'flags'])->name('groups.flags');
 

@@ -49,9 +49,27 @@ class GroupController extends Controller
         $user = $request->user();
         $membership = $group->memberships()->where('user_id', $user->id)->first();
 
-        $topics = $group->topics()->withCount('posts')->latest()->paginate(10);
+        $categories = $group->topics()
+            ->selectRaw('COALESCE(category, ml_label) as label')
+            ->whereNotNull('category')
+            ->orWhereNotNull('ml_label')
+            ->distinct()
+            ->pluck('label')
+            ->filter()
+            ->sort()
+            ->values();
 
-        return view('groups.show', compact('group', 'membership', 'topics'));
+        $topicsQuery = $group->topics()->withCount('posts')->latest();
+
+        if ($request->filled('category')) {
+            $topicsQuery->where(function ($q) use ($request) {
+                $q->where('category', $request->category)->orWhere('ml_label', $request->category);
+            });
+        }
+
+        $topics = $topicsQuery->paginate(10)->withQueryString();
+
+        return view('groups.show', compact('group', 'membership', 'topics', 'categories'));
     }
 
     public function join(Request $request, Group $group)

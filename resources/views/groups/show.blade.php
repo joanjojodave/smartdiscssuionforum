@@ -31,7 +31,27 @@
                 </div>
             @endif
 
+            @if ($categories->isNotEmpty())
+                <div class="flex flex-wrap items-center gap-2 bg-white shadow-sm rounded-lg p-3">
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Topics:</span>
+                    <a href="{{ route('groups.show', $group) }}"
+                       class="px-2.5 py-1 text-xs rounded-full border {{ request('category') ? 'border-gray-200 text-gray-500 hover:bg-gray-50' : 'bg-indigo-600 text-white border-indigo-600' }}">
+                        All
+                    </a>
+                    @foreach ($categories as $category)
+                        <a href="{{ route('groups.show', ['group' => $group, 'category' => $category]) }}"
+                           class="px-2.5 py-1 text-xs rounded-full border {{ request('category') === $category ? 'bg-indigo-600 text-white border-indigo-600' : 'border-gray-200 text-gray-600 hover:bg-gray-50' }}">
+                            {{ $category }}
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+
             @foreach ($topics as $topic)
+                @php
+                    $label = $topic->category ?? $topic->ml_label;
+                    $autoClassified = $label && $topic->ml_label === $label && $topic->category === $topic->ml_label;
+                @endphp
                 <div class="bg-white shadow-sm rounded-lg p-5 flex items-center justify-between">
                     <div>
                         <a href="{{ route('topics.show', $topic) }}" class="font-semibold text-indigo-700 hover:underline">{{ $topic->title }}</a>
@@ -41,10 +61,16 @@
                         @if ($topic->is_resolved)
                             <span class="ml-2 px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-700">Resolved</span>
                         @endif
-                        <p class="text-xs text-gray-400 mt-1">
-                            by {{ $topic->author->name }} &middot; {{ $topic->created_at->diffForHumans() }}
-                            &middot; category: {{ $topic->category ?? $topic->ml_label ?? 'general' }}
-                            &middot; {{ $topic->posts_count }} post(s)
+                        <p class="text-xs text-gray-400 mt-1 flex items-center gap-2 flex-wrap">
+                            <span>by {{ $topic->author->name }} &middot; {{ $topic->created_at->diffForHumans() }} &middot; {{ $topic->posts_count }} post(s)</span>
+                            @if ($label)
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium normal-case">
+                                    {{ $label }}
+                                    @if ($autoClassified)
+                                        <span title="Automatically classified by the topic-classification service" class="text-indigo-400">· auto</span>
+                                    @endif
+                                </span>
+                            @endif
                         </p>
                     </div>
                     <a href="{{ route('topics.export', $topic) }}" class="text-xs px-3 py-1.5 border rounded-md text-gray-600 hover:bg-gray-50">Export PDF</a>

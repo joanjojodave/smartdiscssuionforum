@@ -107,7 +107,10 @@
                 </div>
             </div>
 
-            <a href="{{ route('admin.users') }}" class="text-sm text-indigo-700 underline">Manage user roles →</a>
+            <div class="flex gap-4">
+                <a href="{{ route('admin.members') }}" class="text-sm text-indigo-700 underline">Warn or restrict any member →</a>
+                <a href="{{ route('admin.users') }}" class="text-sm text-indigo-700 underline">Manage user roles →</a>
+            </div>
         </div>
     </div>
 </x-app-layout>

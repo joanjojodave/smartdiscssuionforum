@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <h2 class="text-lg font-semibold text-gray-800 mb-1">Welcome back</h2>
+    <p class="text-sm text-gray-500 mb-6">Log in to your Smart Discussion Forum account.</p>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 

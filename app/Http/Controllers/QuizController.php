@@ -12,9 +12,20 @@ class QuizController extends Controller
 {
     public function index(Request $request)
     {
-        $groupIds = $request->user()->groups()->pluck('groups.id');
+        $user = $request->user();
 
-        $quizzes = Quiz::whereIn('group_id', $groupIds)->latest('start_at')->get();
+        if ($user->isAdmin()) {
+            $quizzes = Quiz::latest('start_at')->get();
+        } elseif ($user->isLecturer()) {
+            $groupIds = $user->groups()->pluck('groups.id');
+            $quizzes = Quiz::where('lecturer_id', $user->id)
+                ->orWhereIn('group_id', $groupIds)
+                ->latest('start_at')
+                ->get();
+        } else {
+            $groupIds = $user->groups()->pluck('groups.id');
+            $quizzes = Quiz::whereIn('group_id', $groupIds)->latest('start_at')->get();
+        }
 
         return view('quizzes.index', compact('quizzes'));
     }

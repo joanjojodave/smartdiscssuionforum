@@ -66,6 +66,27 @@ class AdminController extends Controller
         return view('admin.group-stats', compact('group', 'stats'));
     }
 
+    /**
+     * A single, obvious place for an admin to warn or restrict *any*
+     * member across *any* group -- not just members the automated
+     * inactivity pipeline has already flagged (SDD 1.2 / requirement #4).
+     */
+    public function members(Request $request)
+    {
+        $groups = Group::orderBy('name')->get();
+        $groupId = $request->integer('group_id');
+
+        $memberships = Membership::with(['user', 'group'])
+            ->whereIn('memberships.status', ['active', 'warned', 'blacklisted'])
+            ->when($groupId, fn ($q) => $q->where('group_id', $groupId))
+            ->join('users', 'users.id', '=', 'memberships.user_id')
+            ->orderBy('users.name')
+            ->select('memberships.*')
+            ->get();
+
+        return view('admin.members', compact('groups', 'memberships', 'groupId'));
+    }
+
     public function flags(Group $group)
     {
         $memberships = $group->memberships()->with('user')->orderByDesc('warnings_count')->get();
