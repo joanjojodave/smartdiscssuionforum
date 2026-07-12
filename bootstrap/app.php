@@ -20,6 +20,19 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => EnsureUserHasRole::class,
             'active.member' => EnsureActiveGroupMember::class,
         ]);
+
+        // Railway (and most PaaS hosts) sit the app behind a reverse proxy that
+        // terminates TLS and forwards the original request over plain HTTP.
+        // Without trusting it, Laravel can't tell the request was HTTPS, which
+        // breaks secure session cookies, CSRF verification, and URL generation
+        // — the visible symptom is form/button submits silently failing.
+        $middleware->trustProxies(
+            at: '*',
+            headers: Request::HEADER_X_FORWARDED_FOR
+                | Request::HEADER_X_FORWARDED_HOST
+                | Request::HEADER_X_FORWARDED_PORT
+                | Request::HEADER_X_FORWARDED_PROTO,
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
