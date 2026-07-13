@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AdminApiController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardApiController;
 use App\Http\Controllers\Api\GroupApiController;
 use App\Http\Controllers\Api\QuizApiController;
 use App\Http\Controllers\Api\SyncApiController;
@@ -39,4 +41,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/sync/pull', [SyncApiController::class, 'pull']);
     Route::post('/sync/push', [SyncApiController::class, 'push']);
+
+    Route::get('/dashboard', [DashboardApiController::class, 'index']);
+    Route::get('/notifications', [DashboardApiController::class, 'notifications']);
+    Route::post('/notifications/{notification}/read', [DashboardApiController::class, 'markNotificationRead']);
+    Route::get('/profile', [DashboardApiController::class, 'profile']);
+    Route::patch('/profile', [DashboardApiController::class, 'updateProfile']);
+
+    Route::middleware('role:admin')->prefix('admin')->group(function () {
+        Route::get('/members', [AdminApiController::class, 'members']);
+        Route::post('/memberships/{membership}/warn', [AdminApiController::class, 'warn']);
+        Route::post('/memberships/{membership}/blacklist', [AdminApiController::class, 'blacklist']);
+        Route::post('/memberships/{membership}/reinstate', [AdminApiController::class, 'reinstate']);
+    });
 });
