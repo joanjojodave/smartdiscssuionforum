@@ -6,8 +6,12 @@ import com.sdf.desktop.ui.LoginFrame;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import java.awt.Color;
 
 public class Main {
+    /** Same indigo-600 used for the web app's branding, buttons, and links. */
+    public static final Color BRAND_COLOR = new Color(0x4F, 0x46, 0xE5);
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

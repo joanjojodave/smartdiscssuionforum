@@ -31,6 +31,7 @@ public class LoginFrame extends JFrame {
         this.store = store;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(Brand.icon());
         setLayout(new GridBagLayout());
         setSize(420, 320);
         setLocationRelativeTo(null);
@@ -41,21 +42,33 @@ public class LoginFrame extends JFrame {
         c.gridy = 0;
         c.anchor = GridBagConstraints.WEST;
 
-        add(new JLabel("Smart Discussion Forum", SwingConstants.CENTER), gbc(c, 0, 0, 2));
-        add(new JLabel("Server URL"), gbc(c, 0, 1, 1));
-        add(serverField, gbc(c, 1, 1, 1));
-        add(new JLabel("Email"), gbc(c, 0, 2, 1));
-        add(emailField, gbc(c, 1, 2, 1));
-        add(new JLabel("Password"), gbc(c, 0, 3, 1));
-        add(passwordField, gbc(c, 1, 3, 1));
+        GridBagConstraints labelC = (GridBagConstraints) c.clone();
+        labelC.weightx = 0;
+        labelC.fill = GridBagConstraints.NONE;
 
+        GridBagConstraints fieldC = (GridBagConstraints) c.clone();
+        fieldC.weightx = 1.0;
+        fieldC.fill = GridBagConstraints.HORIZONTAL;
+
+        JLabel title = new JLabel("Smart Discussion Forum", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(Font.BOLD, 18f));
+        title.setForeground(Brand.ACCENT);
+        add(title, gbc(labelC, 0, 0, 2));
+        add(new JLabel("Server URL"), gbc(labelC, 0, 1, 1));
+        add(serverField, gbc(fieldC, 1, 1, 1));
+        add(new JLabel("Email"), gbc(labelC, 0, 2, 1));
+        add(emailField, gbc(fieldC, 1, 2, 1));
+        add(new JLabel("Password"), gbc(labelC, 0, 3, 1));
+        add(passwordField, gbc(fieldC, 1, 3, 1));
+
+        Brand.primary(loginButton);
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttons.add(loginButton);
         buttons.add(offlineButton);
-        add(buttons, gbc(c, 0, 4, 2));
+        add(buttons, gbc(labelC, 0, 4, 2));
 
         statusLabel.setForeground(Color.RED);
-        add(statusLabel, gbc(c, 0, 5, 2));
+        add(statusLabel, gbc(labelC, 0, 5, 2));
 
         loginButton.addActionListener(e -> doLogin());
         offlineButton.addActionListener(e -> tryOfflineOpen());

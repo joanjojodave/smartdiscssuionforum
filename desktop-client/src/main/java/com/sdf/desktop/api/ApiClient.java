@@ -62,6 +62,10 @@ public class ApiClient {
         return request("POST", path, body, true);
     }
 
+    public JSONObject patch(String path, JSONObject body) throws ApiException, OfflineException {
+        return request("PATCH", path, body, true);
+    }
+
     private JSONObject request(String method, String path, JSONObject body, boolean authenticated)
             throws ApiException, OfflineException {
         try {

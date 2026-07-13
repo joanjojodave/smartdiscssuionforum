@@ -62,6 +62,8 @@ public class MessagesPanel extends JPanel {
         sendButton.addActionListener(e -> sendMessage());
         inputField.addActionListener(e -> sendMessage());
         excludeButton.addActionListener(e -> pickExcludedMembers());
+
+        Brand.primary(sendButton);
     }
 
     public void reloadGroupList() {

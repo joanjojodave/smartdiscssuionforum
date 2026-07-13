@@ -27,9 +27,13 @@ public class MainFrame extends JFrame {
     private final JLabel pendingLabel = new JLabel();
     private final javax.swing.Timer syncTimer;
 
+    private final DashboardPanel dashboardPanel;
     private final GroupsPanel groupsPanel;
     private final MessagesPanel messagesPanel;
     private final QuizzesPanel quizzesPanel;
+    private final NotificationsPanel notificationsPanel;
+    private final ProfilePanel profilePanel;
+    private final AdminMembersPanel adminMembersPanel;
 
     private volatile boolean online = false;
 
@@ -41,18 +45,29 @@ public class MainFrame extends JFrame {
         this.online = startedOnline;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setIconImage(Brand.icon());
         setSize(1000, 680);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
+        dashboardPanel = new DashboardPanel(this);
         groupsPanel = new GroupsPanel(this);
         messagesPanel = new MessagesPanel(this);
         quizzesPanel = new QuizzesPanel(this);
+        notificationsPanel = new NotificationsPanel(this);
+        profilePanel = new ProfilePanel(this);
+        adminMembersPanel = new AdminMembersPanel(this);
 
         JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("Dashboard", dashboardPanel);
         tabs.addTab("Groups & Discussions", groupsPanel);
         tabs.addTab("Group Chat", messagesPanel);
         tabs.addTab("Quizzes", quizzesPanel);
+        tabs.addTab("Notifications", notificationsPanel);
+        if ("admin".equals(user.optString("role"))) {
+            tabs.addTab("Admin - Members", adminMembersPanel);
+        }
+        tabs.addTab("Profile", profilePanel);
         add(tabs, BorderLayout.CENTER);
 
         add(buildStatusBar(), BorderLayout.SOUTH);
@@ -100,6 +115,15 @@ public class MainFrame extends JFrame {
         groupsPanel.reloadFromCache();
         messagesPanel.reloadGroupList();
         quizzesPanel.reloadFromCache();
+
+        // These tabs have no offline cache of their own -- they're simple
+        // online-only reads that no-op when there's no connection yet.
+        dashboardPanel.load();
+        notificationsPanel.load();
+        profilePanel.load();
+        if ("admin".equals(user.optString("role"))) {
+            adminMembersPanel.load();
+        }
     }
 
     public void runSync(boolean manual) {

@@ -84,6 +84,7 @@ public class GroupsPanel extends JPanel {
         rulesButton.addActionListener(e -> reviewRules());
         newTopicButton.addActionListener(e -> newTopic());
 
+        Brand.primary(newTopicButton);
         setButtonsEnabled(false);
     }
 
