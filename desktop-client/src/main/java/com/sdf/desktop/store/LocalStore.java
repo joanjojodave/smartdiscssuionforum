@@ -40,6 +40,23 @@ public class LocalStore {
             st.execute("CREATE TABLE IF NOT EXISTS quizzes_cache (id INTEGER PRIMARY KEY, group_id INTEGER, title TEXT, start_at TEXT, duration_minutes INTEGER, target_category TEXT, status TEXT)");
             st.execute("CREATE TABLE IF NOT EXISTS outbox (client_ref TEXT PRIMARY KEY, type TEXT, payload TEXT, local_id INTEGER, created_at TEXT)");
         }
+
+        // Resume the negative-id counter from whatever's already cached so a
+        // still-unsynced message/reply from a previous offline session can't
+        // collide with the next placeholder id handed out this run.
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(
+                     "SELECT MIN(id) AS min_id FROM (" +
+                             "SELECT id FROM messages_cache WHERE id < 0 " +
+                             "UNION ALL SELECT id FROM posts_cache WHERE id < 0" +
+                             ")")) {
+            if (rs.next()) {
+                long minId = rs.getLong("min_id");
+                if (!rs.wasNull() && minId <= nextLocalId) {
+                    nextLocalId = minId - 1;
+                }
+            }
+        }
     }
 
     public void close() {

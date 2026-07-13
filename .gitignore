@@ -39,6 +39,10 @@ Homestead.yaml
 # ── Java desktop client (Maven) ──────────────────────────────
 desktop-client/target/
 desktop-client/dependency-reduced-pom.xml
+desktop-client/build-tmp/
+desktop-client/dist/
+desktop-client/*.jar
+desktop-client/*.ico
 
 # ── Logs (any location, either app) ──────────────────────────
 *.log

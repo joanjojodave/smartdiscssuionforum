@@ -9,7 +9,7 @@ import java.io.File;
 public final class Config {
 
     /** Overridable via -Dsdf.apiBaseUrl=... for pointing at a deployed backend. */
-    public static String apiBaseUrl = System.getProperty("sdf.apiBaseUrl", "http://127.0.0.1:8010/api");
+    public static String apiBaseUrl = System.getProperty("sdf.apiBaseUrl", "https://smartdiscssuionforum-production.up.railway.app/api");
 
     public static final File APP_DIR = new File(System.getProperty("user.home"), ".smart-discussion-forum");
 
