@@ -22,10 +22,12 @@
                     <x-nav-link :href="route('quizzes.index')" :active="request()->routeIs('quizzes.*')">
                         {{ __('Quizzes') }}
                     </x-nav-link>
-                    @if (Auth::user()->isLecturer() || Auth::user()->isAdmin())
+                    @if (Auth::user()->isLecturer())
                         <x-nav-link :href="route('lecturer.quizzes.create')" :active="request()->routeIs('lecturer.quizzes.*')">
                             {{ __('Schedule Quiz') }}
                         </x-nav-link>
+                    @endif
+                    @if (Auth::user()->isLecturer() || Auth::user()->isAdmin())
                         <x-nav-link :href="route('lecturer.participation')" :active="request()->routeIs('lecturer.participation')">
                             {{ __('Participation') }}
                         </x-nav-link>
@@ -129,10 +131,12 @@
             <x-responsive-nav-link :href="route('quizzes.index')" :active="request()->routeIs('quizzes.*')">
                 {{ __('Quizzes') }}
             </x-responsive-nav-link>
-            @if (Auth::user()->isLecturer() || Auth::user()->isAdmin())
+            @if (Auth::user()->isLecturer())
                 <x-responsive-nav-link :href="route('lecturer.quizzes.create')" :active="request()->routeIs('lecturer.quizzes.*')">
                     {{ __('Schedule Quiz') }}
                 </x-responsive-nav-link>
+            @endif
+            @if (Auth::user()->isLecturer() || Auth::user()->isAdmin())
                 <x-responsive-nav-link :href="route('lecturer.participation')" :active="request()->routeIs('lecturer.participation')">
                     {{ __('Participation') }}
                 </x-responsive-nav-link>

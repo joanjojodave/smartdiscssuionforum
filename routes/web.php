@@ -70,11 +70,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/quizzes/{quiz}/report', [QuizController::class, 'report'])->name('quizzes.report');
 
     // ---- Lecturer area (requirements #9, #10) ----
-    Route::middleware('role:lecturer,admin')->prefix('lecturer')->name('lecturer.')->group(function () {
+    Route::middleware('role:lecturer')->prefix('lecturer')->name('lecturer.')->group(function () {
         Route::get('/quizzes/create', [QuizManageController::class, 'create'])->name('quizzes.create');
         Route::post('/quizzes', [QuizManageController::class, 'store'])->name('quizzes.store');
         Route::get('/quizzes/{quiz}/report', [QuizManageController::class, 'report'])->name('quizzes.report');
+    });
 
+    Route::middleware('role:lecturer,admin')->prefix('lecturer')->name('lecturer.')->group(function () {
         Route::get('/participation', [ParticipationController::class, 'index'])->name('participation');
         Route::post('/participation/recompute', [ParticipationController::class, 'recompute'])->name('participation.recompute');
     });
