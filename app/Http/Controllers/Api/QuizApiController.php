@@ -16,6 +16,7 @@ class QuizApiController extends Controller
         $groupIds = $request->user()->groups()->pluck('groups.id');
 
         $quizzes = Quiz::whereIn('group_id', $groupIds)->latest('start_at')->get()
+            ->each(fn (Quiz $q) => $this->syncStatus($q))
             ->map(fn (Quiz $q) => $this->quizSummary($q));
 
         return response()->json(['quizzes' => $quizzes]);

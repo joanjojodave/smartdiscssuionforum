@@ -27,6 +27,11 @@ class QuizController extends Controller
             $quizzes = Quiz::whereIn('group_id', $groupIds)->latest('start_at')->get();
         }
 
+        // The list page is often the only page a student ever loads, so it
+        // has to self-heal status here too -- otherwise a quiz stays stuck
+        // showing "Scheduled" for anyone who never personally opens it.
+        $quizzes->each(fn (Quiz $quiz) => $this->syncStatus($quiz));
+
         return view('quizzes.index', compact('quizzes'));
     }
 
