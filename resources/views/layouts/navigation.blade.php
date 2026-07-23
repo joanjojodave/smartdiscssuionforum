@@ -12,32 +12,32 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex sm:items-center">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        <x-icon name="home" class="w-4 h-4" /> {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.*')">
-                        {{ __('Groups') }}
+                        <x-icon name="chat" class="w-4 h-4" /> {{ __('Groups') }}
                     </x-nav-link>
                     <x-nav-link :href="route('quizzes.index')" :active="request()->routeIs('quizzes.*')">
-                        {{ __('Quizzes') }}
+                        <x-icon name="calendar" class="w-4 h-4" /> {{ __('Quizzes') }}
                     </x-nav-link>
                     @if (Auth::user()->isLecturer())
                         <x-nav-link :href="route('lecturer.quizzes.create')" :active="request()->routeIs('lecturer.quizzes.*')">
-                            {{ __('Schedule Quiz') }}
+                            <x-icon name="calendar-plus" class="w-4 h-4" /> {{ __('Schedule Quiz') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::user()->isLecturer() || Auth::user()->isAdmin())
                         <x-nav-link :href="route('lecturer.participation')" :active="request()->routeIs('lecturer.participation')">
-                            {{ __('Participation') }}
+                            <x-icon name="chart" class="w-4 h-4" /> {{ __('Participation') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::user()->isAdmin())
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                            {{ __('Admin') }}
+                            <x-icon name="shield" class="w-4 h-4" /> {{ __('Admin') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.members')" :active="request()->routeIs('admin.members')">
-                            {{ __('Members') }}
+                            <x-icon name="users" class="w-4 h-4" /> {{ __('Members') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -47,8 +47,8 @@
                 <!-- Notifications -->
                 <x-dropdown align="right" width="80">
                     <x-slot name="trigger">
-                        <button class="relative inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <span>🔔</span>
+                        <button class="relative inline-flex items-center justify-center w-10 h-10 rounded-full text-gray-500 bg-white hover:text-fb-700 hover:bg-fb-50 focus:outline-none transition ease-in-out duration-150">
+                            <x-icon name="bell" class="w-5 h-5" />
                             @if (Auth::user()->unreadNotifications()->count() > 0)
                                 <span class="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
                                     {{ Auth::user()->unreadNotifications()->count() }}
@@ -77,7 +77,10 @@
                 <!-- Settings Dropdown -->
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center gap-2 pl-1.5 pr-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-full text-gray-500 bg-white hover:text-fb-700 hover:bg-fb-50 focus:outline-none transition ease-in-out duration-150">
+                            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-fb-600 text-white">
+                                <x-icon name="user" class="w-4 h-4" />
+                            </span>
                             <div>{{ Auth::user()->name }} <span class="text-xs text-gray-400">({{ ucfirst(Auth::user()->role) }})</span></div>
 
                             <div class="ms-1">
@@ -123,30 +126,30 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                <x-icon name="home" class="w-4 h-4" /> {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.*')">
-                {{ __('Groups') }}
+                <x-icon name="chat" class="w-4 h-4" /> {{ __('Groups') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('quizzes.index')" :active="request()->routeIs('quizzes.*')">
-                {{ __('Quizzes') }}
+                <x-icon name="calendar" class="w-4 h-4" /> {{ __('Quizzes') }}
             </x-responsive-nav-link>
             @if (Auth::user()->isLecturer())
                 <x-responsive-nav-link :href="route('lecturer.quizzes.create')" :active="request()->routeIs('lecturer.quizzes.*')">
-                    {{ __('Schedule Quiz') }}
+                    <x-icon name="calendar-plus" class="w-4 h-4" /> {{ __('Schedule Quiz') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::user()->isLecturer() || Auth::user()->isAdmin())
                 <x-responsive-nav-link :href="route('lecturer.participation')" :active="request()->routeIs('lecturer.participation')">
-                    {{ __('Participation') }}
+                    <x-icon name="chart" class="w-4 h-4" /> {{ __('Participation') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::user()->isAdmin())
                 <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                    {{ __('Admin') }}
+                    <x-icon name="shield" class="w-4 h-4" /> {{ __('Admin') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.members')" :active="request()->routeIs('admin.members')">
-                    {{ __('Members') }}
+                    <x-icon name="users" class="w-4 h-4" /> {{ __('Members') }}
                 </x-responsive-nav-link>
             @endif
         </div>

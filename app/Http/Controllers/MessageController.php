@@ -33,7 +33,27 @@ class MessageController extends Controller
 
         $storeUrl = route('messages.store', $group);
 
-        return view('groups.messages', compact('group', 'messages', 'members', 'messagesForJs', 'storeUrl'));
+        // Left-rail chat list: every other group the user actively belongs to.
+        $myGroups = $user->memberships()
+            ->where('status', 'active')
+            ->with('group')
+            ->get()
+            ->pluck('group')
+            ->filter();
+
+        $notifications = $user->notifications()->limit(6)->get();
+
+        $joinedGroupIds = $user->memberships()->pluck('group_id');
+        $suggestedGroups = Group::withCount('members')
+            ->whereNotIn('id', $joinedGroupIds)
+            ->latest()
+            ->limit(4)
+            ->get();
+
+        return view('groups.messages', compact(
+            'group', 'messages', 'members', 'messagesForJs', 'storeUrl',
+            'myGroups', 'notifications', 'suggestedGroups'
+        ));
     }
 
     public function store(Request $request, Group $group)

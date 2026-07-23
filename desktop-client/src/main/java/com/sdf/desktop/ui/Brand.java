@@ -14,10 +14,14 @@ import java.awt.*;
  */
 public final class Brand {
 
-    // Core brand color, same Facebook blue (fb-600/700/50) used across the web app.
-    public static final Color ACCENT = new Color(0x18, 0x77, 0xF2);
-    public static final Color ACCENT_DARK = new Color(0x16, 0x6F, 0xE5);
-    public static final Color ACCENT_LIGHT = new Color(0xE7, 0xF3, 0xFF);
+    // Core brand color, same purple/periwinkle (fb-600/700/50) used across the web app.
+    public static final Color ACCENT = new Color(0x6C, 0x6F, 0xEB);
+    public static final Color ACCENT_DARK = new Color(0x54, 0x57, 0xD1);
+    public static final Color ACCENT_LIGHT = new Color(0xEE, 0xF0, 0xFD);
+
+    // Secondary accent (the mockup's logo-mark gold), used sparingly for highlights.
+    public static final Color GOLD = new Color(0xF5, 0xB9, 0x42);
+    public static final Color GOLD_DARK = new Color(0xE0, 0xA6, 0x2E);
 
     // Status colors, reused for badges/pills across panels so the same status
     // always reads the same color everywhere (active/open/resolved = green, etc).
@@ -37,7 +41,7 @@ public final class Brand {
     public static final Color VIOLET = new Color(0x7C, 0x3A, 0xED);
 
     // Page chrome.
-    public static final Color PAGE_BG = new Color(0xF0, 0xF2, 0xF5);
+    public static final Color PAGE_BG = new Color(0xF5, 0xF4, 0xFC);
     public static final Color CARD_BG = Color.WHITE;
     public static final Color BORDER = new Color(0xE5, 0xE7, 0xEB);
     public static final Color TEXT = new Color(0x11, 0x18, 0x27);
