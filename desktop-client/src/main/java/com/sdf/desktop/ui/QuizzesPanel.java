@@ -17,12 +17,12 @@ public class QuizzesPanel extends JPanel {
         setLayout(new BorderLayout(6, 6));
 
         quizList.setCellRenderer((list, value, index, isSelected, hasFocus) -> {
-            String label = String.format("<html><b>%s</b> &middot; %s &middot; starts %s &middot; %d min &middot; [%s]</html>",
+            String label = String.format("<html><b>%s</b> &middot; %s &middot; starts %s &middot; %d min &middot; %s</html>",
                     escape(value.getString("title")),
                     escape(groupName(value.optInt("group_id", 0))),
                     MainFrame.formatInstant(value.getString("start_at")),
                     value.getInt("duration_minutes"),
-                    value.getString("status"));
+                    statusHtml(value.getString("status")));
             JLabel l = new JLabel(label);
             l.setOpaque(true);
             l.setBorder(BorderFactory.createEmptyBorder(6, 8, 6, 8));
@@ -35,7 +35,10 @@ public class QuizzesPanel extends JPanel {
 
         JButton openButton = new JButton("Open selected quiz");
         openButton.addActionListener(e -> openSelected());
-        add(openButton, BorderLayout.SOUTH);
+        Brand.primary(openButton);
+        JPanel southBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        southBar.add(openButton);
+        add(southBar, BorderLayout.SOUTH);
 
         quizList.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -78,6 +81,16 @@ public class QuizzesPanel extends JPanel {
             default -> {}
         }
         reloadFromCache();
+    }
+
+    private static String statusHtml(String status) {
+        String color = switch (status) {
+            case "open" -> "#15803D";
+            case "scheduled" -> "#92400E";
+            case "closed" -> "#B91C1C";
+            default -> "#475569";
+        };
+        return "<font color='" + color + "'><b>[" + status + "]</b></font>";
     }
 
     private static String escape(String s) {

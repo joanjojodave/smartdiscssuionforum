@@ -19,7 +19,7 @@
                     <form method="POST" action="{{ route('lecturer.participation.recompute') }}">
                         @csrf
                         <input type="hidden" name="group_id" value="{{ $group->id }}">
-                        <button class="px-3 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">Recompute marks</button>
+                        <button class="px-3 py-2 bg-fb-600 text-white text-sm rounded-md hover:bg-fb-700">Recompute marks</button>
                     </form>
                 @endif
             </div>

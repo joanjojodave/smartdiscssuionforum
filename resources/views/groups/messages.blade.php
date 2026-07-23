@@ -12,7 +12,7 @@
                     <template x-for="m in messages" :key="m.id">
                         <div class="flex" :class="m.sender_id === userId ? 'justify-end' : 'justify-start'">
                             <div class="max-w-xs px-3 py-2 rounded-lg text-sm"
-                                 :class="m.sender_id === userId ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800'">
+                                 :class="m.sender_id === userId ? 'bg-fb-600 text-white' : 'bg-gray-100 text-gray-800'">
                                 <div class="text-xs opacity-70" x-show="m.sender_id !== userId" x-text="m.sender"></div>
                                 <div x-text="m.body"></div>
                             </div>
@@ -38,7 +38,7 @@
                     <div class="flex gap-2">
                         <input type="text" x-model="body" placeholder="Type a message..." class="flex-1 rounded-md border-gray-300 text-sm" />
                         <button type="button" @click="showExclude = !showExclude" class="px-3 py-2 text-xs border rounded-md hover:bg-gray-50">Exclude</button>
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">Send</button>
+                        <button type="submit" class="px-4 py-2 bg-fb-600 text-white text-sm rounded-md hover:bg-fb-700">Send</button>
                     </div>
                 </form>
             </div>

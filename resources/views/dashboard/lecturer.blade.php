@@ -6,7 +6,7 @@
     <div class="py-8">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="flex gap-3">
-                <a href="{{ route('lecturer.quizzes.create') }}" class="px-4 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">+ Schedule quiz</a>
+                <a href="{{ route('lecturer.quizzes.create') }}" class="px-4 py-2 bg-fb-600 text-white text-sm rounded-md hover:bg-fb-700">+ Schedule quiz</a>
                 <a href="{{ route('lecturer.participation') }}" class="px-4 py-2 bg-white border text-sm rounded-md hover:bg-gray-50">Group participation grading</a>
             </div>
 
@@ -23,7 +23,7 @@
                                 <td>
                                     <span class="px-2 py-0.5 text-xs rounded-full {{ $quiz->status === 'scheduled' ? 'bg-yellow-100 text-yellow-800' : ($quiz->status === 'open' ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-700') }}">{{ ucfirst($quiz->status) }}</span>
                                 </td>
-                                <td><a href="{{ route('lecturer.quizzes.report', $quiz) }}" class="text-indigo-700 text-xs hover:underline">View report</a></td>
+                                <td><a href="{{ route('lecturer.quizzes.report', $quiz) }}" class="text-fb-700 text-xs hover:underline">View report</a></td>
                             </tr>
                         @empty
                             <tr><td colspan="5" class="py-2 text-gray-400">No quizzes scheduled yet.</td></tr>
@@ -37,7 +37,7 @@
                 <ul class="divide-y">
                     @foreach ($groups as $group)
                         <li class="py-2 text-sm flex justify-between items-center">
-                            <a href="{{ route('groups.show', $group) }}" class="text-indigo-700 hover:underline">{{ $group->name }}</a>
+                            <a href="{{ route('groups.show', $group) }}" class="text-fb-700 hover:underline">{{ $group->name }}</a>
                             <span class="text-xs text-gray-400">{{ $group->members->count() }} member(s)</span>
                         </li>
                     @endforeach

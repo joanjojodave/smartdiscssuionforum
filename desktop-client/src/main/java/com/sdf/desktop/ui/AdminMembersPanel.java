@@ -37,8 +37,8 @@ public class AdminMembersPanel extends JPanel {
         list.setCellRenderer((l, value, index, isSelected, hasFocus) -> {
             String status = value.optString("status", "active");
             Color bg = switch (status) {
-                case "blacklisted" -> new Color(0xFE, 0xE2, 0xE2);
-                case "warned" -> new Color(0xFF, 0xED, 0xD5);
+                case "blacklisted" -> Brand.DANGER_BG;
+                case "warned" -> Brand.WARNING_BG;
                 default -> l.getBackground();
             };
             JLabel label = new JLabel("<html>" + escape(value.optString("user_name")) + " &middot; "
@@ -69,6 +69,9 @@ public class AdminMembersPanel extends JPanel {
         warnButton.addActionListener(e -> act("warn"));
         blacklistButton.addActionListener(e -> act("blacklist"));
         reinstateButton.addActionListener(e -> act("reinstate"));
+        Brand.secondary(warnButton);
+        Brand.danger(blacklistButton);
+        Brand.primary(reinstateButton);
         bottom.add(warnButton);
         bottom.add(blacklistButton);
         bottom.add(reinstateButton);

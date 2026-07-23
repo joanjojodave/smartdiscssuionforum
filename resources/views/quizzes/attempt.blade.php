@@ -5,7 +5,7 @@
 
     <div class="py-8" x-data="quizLockdown({{ max($secondsRemaining, 0) }})" x-init="start()" @beforeunload.window="warnLeave">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="sticky top-0 z-10 bg-indigo-600 text-white rounded-lg px-4 py-3 mb-4 flex items-center justify-between shadow">
+            <div class="sticky top-0 z-10 bg-fb-600 text-white rounded-lg px-4 py-3 mb-4 flex items-center justify-between shadow">
                 <span class="text-sm font-medium">🔒 Lockdown mode - stay on this page until you submit</span>
                 <span class="font-mono text-lg" x-text="formatted"></span>
             </div>

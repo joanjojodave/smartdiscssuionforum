@@ -8,12 +8,12 @@
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                 @foreach ($stats as $label => $value)
                     <div class="bg-white shadow-sm rounded-lg p-4 text-center">
-                        <div class="text-2xl font-semibold text-indigo-700">{{ $value }}</div>
+                        <div class="text-2xl font-semibold text-fb-700">{{ $value }}</div>
                         <div class="text-xs text-gray-500 uppercase">{{ str_replace('_', ' ', $label) }}</div>
                     </div>
                 @endforeach
             </div>
-            <a href="{{ route('admin.groups.flags', $group) }}" class="inline-block mt-6 text-sm text-indigo-700 underline">View moderation flags for this group →</a>
+            <a href="{{ route('admin.groups.flags', $group) }}" class="inline-block mt-6 text-sm text-fb-700 underline">View moderation flags for this group →</a>
         </div>
     </div>
 </x-app-layout>

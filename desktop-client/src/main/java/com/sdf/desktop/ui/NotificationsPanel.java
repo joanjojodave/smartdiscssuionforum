@@ -27,17 +27,23 @@ public class NotificationsPanel extends JPanel {
                 label.setBackground(l.getSelectionBackground());
                 label.setForeground(l.getSelectionForeground());
             } else {
-                label.setBackground(read ? l.getBackground() : new Color(0xEE, 0xF2, 0xFF));
+                label.setBackground(read ? l.getBackground() : Brand.ACCENT_LIGHT);
                 label.setForeground(l.getForeground());
             }
             return label;
         });
 
         JPanel top = new JPanel(new BorderLayout());
-        top.add(new JLabel("Notifications"), BorderLayout.WEST);
+        top.setBorder(BorderFactory.createEmptyBorder(4, 4, 8, 4));
+        JLabel heading = new JLabel("Notifications");
+        heading.setFont(heading.getFont().deriveFont(Font.BOLD, 16f));
+        heading.setForeground(Brand.TEXT);
+        top.add(heading, BorderLayout.WEST);
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton markReadButton = new JButton("Mark as read");
         JButton refreshButton = new JButton("Refresh");
+        Brand.primary(markReadButton);
+        Brand.secondary(refreshButton);
         buttons.add(markReadButton);
         buttons.add(refreshButton);
         top.add(buttons, BorderLayout.EAST);

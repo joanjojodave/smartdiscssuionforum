@@ -48,7 +48,7 @@
                     <tbody class="divide-y">
                         @forelse ($flaggedPosts as $post)
                             <tr>
-                                <td class="py-1"><a href="{{ route('topics.show', $post->topic_id) }}" class="text-indigo-700 hover:underline">{{ $post->topic->title }}</a></td>
+                                <td class="py-1"><a href="{{ route('topics.show', $post->topic_id) }}" class="text-fb-700 hover:underline">{{ $post->topic->title }}</a></td>
                                 <td>{{ $post->author->name }}</td>
                                 <td>{{ $post->is_flood ? 'Flooding' : 'Low relevance' }}</td>
                             </tr>

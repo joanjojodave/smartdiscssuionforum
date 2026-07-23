@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ $quiz->title }} - Report ({{ $quiz->group->name }})</h2>
-            <a href="{{ route('lecturer.quizzes.create') }}" class="px-3 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">+ Schedule another quiz</a>
+            <a href="{{ route('lecturer.quizzes.create') }}" class="px-3 py-2 bg-fb-600 text-white text-sm rounded-md hover:bg-fb-700">+ Schedule another quiz</a>
         </div>
     </x-slot>
 

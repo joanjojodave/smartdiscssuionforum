@@ -59,17 +59,19 @@ public class MainFrame extends JFrame {
         adminMembersPanel = new AdminMembersPanel(this);
 
         JTabbedPane tabs = new JTabbedPane();
-        tabs.addTab("Dashboard", dashboardPanel);
-        tabs.addTab("Groups & Discussions", groupsPanel);
-        tabs.addTab("Group Chat", messagesPanel);
-        tabs.addTab("Quizzes", quizzesPanel);
-        tabs.addTab("Notifications", notificationsPanel);
+        tabs.setFont(tabs.getFont().deriveFont(Font.BOLD, 13f));
+        tabs.addTab("Dashboard", Brand.dot(Brand.ACCENT), dashboardPanel);
+        tabs.addTab("Groups & Discussions", Brand.dot(Brand.INFO), groupsPanel);
+        tabs.addTab("Group Chat", Brand.dot(Brand.TEAL), messagesPanel);
+        tabs.addTab("Quizzes", Brand.dot(Brand.VIOLET), quizzesPanel);
+        tabs.addTab("Notifications", Brand.dot(Brand.WARNING), notificationsPanel);
         if ("admin".equals(user.optString("role"))) {
-            tabs.addTab("Admin - Members", adminMembersPanel);
+            tabs.addTab("Admin - Members", Brand.dot(Brand.DANGER), adminMembersPanel);
         }
-        tabs.addTab("Profile", profilePanel);
-        add(tabs, BorderLayout.CENTER);
+        tabs.addTab("Profile", Brand.dot(Brand.NEUTRAL), profilePanel);
 
+        add(buildHeaderBar(), BorderLayout.NORTH);
+        add(tabs, BorderLayout.CENTER);
         add(buildStatusBar(), BorderLayout.SOUTH);
 
         loadFromCache();
@@ -87,16 +89,60 @@ public class MainFrame extends JFrame {
         });
     }
 
+    private JPanel buildHeaderBar() {
+        JPanel bar = new JPanel(new BorderLayout());
+        bar.setBackground(Color.WHITE);
+        bar.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 1, 0, Brand.BORDER),
+                BorderFactory.createEmptyBorder(10, 18, 10, 18)));
+
+        JLabel title = new JLabel("Smart Discussion Forum");
+        title.setFont(title.getFont().deriveFont(Font.BOLD, 17f));
+        title.setForeground(Brand.ACCENT);
+        bar.add(title, BorderLayout.WEST);
+
+        JPanel userInfo = new JPanel();
+        userInfo.setOpaque(false);
+        userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.Y_AXIS));
+        JLabel nameLabel = new JLabel(user.getString("name"));
+        nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD, 13f));
+        nameLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        JLabel roleBadge = Brand.pill(capitalize(user.optString("role", "")), Brand.ACCENT_LIGHT, Brand.ACCENT_DARK);
+        roleBadge.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        userInfo.add(nameLabel);
+        userInfo.add(Box.createVerticalStrut(3));
+        userInfo.add(roleBadge);
+
+        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 0));
+        right.setOpaque(false);
+        right.add(userInfo);
+        right.add(Brand.avatar(user.getString("name"), 36));
+        bar.add(right, BorderLayout.EAST);
+
+        return bar;
+    }
+
+    private static String capitalize(String s) {
+        return s == null || s.isEmpty() ? s : Character.toUpperCase(s.charAt(0)) + s.substring(1);
+    }
+
     private JPanel buildStatusBar() {
         JPanel bar = new JPanel(new BorderLayout());
-        bar.setBorder(BorderFactory.createEmptyBorder(4, 10, 4, 10));
+        bar.setBackground(Brand.PAGE_BG);
+        bar.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(1, 0, 0, 0, Brand.BORDER),
+                BorderFactory.createEmptyBorder(6, 14, 6, 14)));
 
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        left.setOpaque(false);
         left.add(statusLabel);
+        pendingLabel.setForeground(Brand.TEXT_MUTED);
         left.add(pendingLabel);
 
         JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        right.setOpaque(false);
         JButton syncNowButton = new JButton("Sync now");
+        Brand.secondary(syncNowButton);
         syncNowButton.addActionListener(e -> runSync(true));
         JButton logoutButton = new JButton("Log out");
         logoutButton.addActionListener(e -> logout());
@@ -165,11 +211,16 @@ public class MainFrame extends JFrame {
             pendingLabel.setText(pending > 0 ? pending + " change(s) waiting to sync" : "");
         } catch (Exception ignored) {}
 
+        statusLabel.setOpaque(true);
+        statusLabel.setFont(statusLabel.getFont().deriveFont(Font.BOLD, 11f));
+        statusLabel.setBorder(BorderFactory.createEmptyBorder(3, 9, 3, 9));
         if (online) {
-            statusLabel.setForeground(new Color(0, 128, 0));
+            statusLabel.setBackground(Brand.SUCCESS_BG);
+            statusLabel.setForeground(Brand.SUCCESS);
             statusLabel.setText("● Online");
         } else {
-            statusLabel.setForeground(Color.RED);
+            statusLabel.setBackground(Brand.DANGER_BG);
+            statusLabel.setForeground(Brand.DANGER);
             statusLabel.setText("● Offline - showing last synced data");
         }
     }

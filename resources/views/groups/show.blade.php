@@ -5,7 +5,7 @@
             <div class="flex gap-2">
                 <a href="{{ route('messages.index', $group) }}" class="px-3 py-2 bg-white border text-sm rounded-md hover:bg-gray-50">Group chat</a>
                 @if ($membership && $membership->status === 'active')
-                    <a href="{{ route('topics.create', $group) }}" class="px-3 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">+ New topic</a>
+                    <a href="{{ route('topics.create', $group) }}" class="px-3 py-2 bg-fb-600 text-white text-sm rounded-md hover:bg-fb-700">+ New topic</a>
                 @endif
             </div>
         </div>
@@ -35,12 +35,12 @@
                 <div class="flex flex-wrap items-center gap-2 bg-white shadow-sm rounded-lg p-3">
                     <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Topics:</span>
                     <a href="{{ route('groups.show', $group) }}"
-                       class="px-2.5 py-1 text-xs rounded-full border {{ request('category') ? 'border-gray-200 text-gray-500 hover:bg-gray-50' : 'bg-indigo-600 text-white border-indigo-600' }}">
+                       class="px-2.5 py-1 text-xs rounded-full border {{ request('category') ? 'border-gray-200 text-gray-500 hover:bg-gray-50' : 'bg-fb-600 text-white border-fb-600' }}">
                         All
                     </a>
                     @foreach ($categories as $category)
                         <a href="{{ route('groups.show', ['group' => $group, 'category' => $category]) }}"
-                           class="px-2.5 py-1 text-xs rounded-full border {{ request('category') === $category ? 'bg-indigo-600 text-white border-indigo-600' : 'border-gray-200 text-gray-600 hover:bg-gray-50' }}">
+                           class="px-2.5 py-1 text-xs rounded-full border {{ request('category') === $category ? 'bg-fb-600 text-white border-fb-600' : 'border-gray-200 text-gray-600 hover:bg-gray-50' }}">
                             {{ $category }}
                         </a>
                     @endforeach
@@ -54,7 +54,7 @@
                 @endphp
                 <div class="bg-white shadow-sm rounded-lg p-5 flex items-center justify-between">
                     <div>
-                        <a href="{{ route('topics.show', $topic) }}" class="font-semibold text-indigo-700 hover:underline">{{ $topic->title }}</a>
+                        <a href="{{ route('topics.show', $topic) }}" class="font-semibold text-fb-700 hover:underline">{{ $topic->title }}</a>
                         @if ($topic->hasUnansweredQuestions())
                             <span class="ml-2 px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700">Unanswered question</span>
                         @endif
@@ -64,10 +64,10 @@
                         <p class="text-xs text-gray-400 mt-1 flex items-center gap-2 flex-wrap">
                             <span>by {{ $topic->author->name }} &middot; {{ $topic->created_at->diffForHumans() }} &middot; {{ $topic->posts_count }} post(s)</span>
                             @if ($label)
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium normal-case">
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-fb-50 text-fb-700 font-medium normal-case">
                                     {{ $label }}
                                     @if ($autoClassified)
-                                        <span title="Automatically classified by the topic-classification service" class="text-indigo-400">· auto</span>
+                                        <span title="Automatically classified by the topic-classification service" class="text-fb-400">· auto</span>
                                     @endif
                                 </span>
                             @endif

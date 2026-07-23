@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Groups</h2>
             @if (Auth::user()->isAdmin())
-                <a href="{{ route('groups.create') }}" class="px-3 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">+ New Group</a>
+                <a href="{{ route('groups.create') }}" class="px-3 py-2 bg-fb-600 text-white text-sm rounded-md hover:bg-fb-700">+ New Group</a>
             @endif
         </div>
     </x-slot>
@@ -14,7 +14,7 @@
                 @php $status = $myMemberships[$group->id] ?? null; @endphp
                 <div class="bg-white shadow-sm rounded-lg p-5 flex items-center justify-between">
                     <div>
-                        <a href="{{ route('groups.show', $group) }}" class="text-lg font-semibold text-indigo-700 hover:underline">{{ $group->name }}</a>
+                        <a href="{{ route('groups.show', $group) }}" class="text-lg font-semibold text-fb-700 hover:underline">{{ $group->name }}</a>
                         <p class="text-sm text-gray-500">{{ $group->description }}</p>
                         <p class="text-xs text-gray-400 mt-1">{{ $group->members_count }} member(s)</p>
                     </div>
@@ -32,7 +32,7 @@
                         @else
                             <form method="POST" action="{{ route('groups.join', $group) }}">
                                 @csrf
-                                <button class="px-3 py-2 bg-indigo-50 text-indigo-700 text-sm rounded-md hover:bg-indigo-100">Join</button>
+                                <button class="px-3 py-2 bg-fb-50 text-fb-700 text-sm rounded-md hover:bg-fb-100">Join</button>
                             </form>
                         @endif
                     </div>

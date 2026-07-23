@@ -26,13 +26,13 @@
                             <p class="text-gray-500 text-sm">This quiz has closed and you did not attempt it.</p>
                         @endif
                     @elseif ($attempt->status === 'in_progress')
-                        <a href="{{ route('quizzes.attempt', $quiz) }}" class="inline-block px-4 py-2 bg-indigo-600 text-white rounded-md">Continue attempt</a>
+                        <a href="{{ route('quizzes.attempt', $quiz) }}" class="inline-block px-4 py-2 bg-fb-600 text-white rounded-md">Continue attempt</a>
                     @else
                         <p class="text-green-700 text-sm">You {{ $attempt->status === 'auto_submitted' ? 'were auto-submitted' : 'submitted' }} this quiz.</p>
                     @endif
 
                     @if ($quiz->status === 'closed')
-                        <a href="{{ route('quizzes.report', $quiz) }}" class="inline-block mt-3 text-sm text-indigo-700 underline">View performance report</a>
+                        <a href="{{ route('quizzes.report', $quiz) }}" class="inline-block mt-3 text-sm text-fb-700 underline">View performance report</a>
                     @endif
                 </div>
             </div>

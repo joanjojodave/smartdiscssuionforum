@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center gap-2">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
-                        <x-application-logo class="block h-9 w-auto fill-current text-indigo-600" />
+                        <x-application-logo class="block h-9 w-auto fill-current text-fb-600" />
                         <span class="font-semibold text-gray-800 hidden md:inline">Smart Discussion Forum</span>
                     </a>
                 </div>
@@ -62,7 +62,7 @@
                             @forelse (Auth::user()->notifications()->limit(10)->get() as $notification)
                                 <form method="POST" action="{{ route('notifications.read', $notification) }}">
                                     @csrf
-                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm {{ $notification->read_at ? 'text-gray-400' : 'text-gray-800 font-medium bg-indigo-50' }} hover:bg-gray-100">
+                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm {{ $notification->read_at ? 'text-gray-400' : 'text-gray-800 font-medium bg-fb-50' }} hover:bg-gray-100">
                                         {{ $notification->data['message'] ?? 'Notification' }}
                                         <div class="text-xs text-gray-400">{{ $notification->created_at->diffForHumans() }}</div>
                                     </button>

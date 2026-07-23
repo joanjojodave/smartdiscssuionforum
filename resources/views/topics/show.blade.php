@@ -6,7 +6,7 @@
                 <p class="text-xs text-gray-400 flex items-center gap-2">
                     in <a href="{{ route('groups.show', $topic->group) }}" class="underline">{{ $topic->group->name }}</a>
                     @if ($topic->category ?? $topic->ml_label)
-                        <span class="inline-flex px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium normal-case">{{ $topic->category ?? $topic->ml_label }}</span>
+                        <span class="inline-flex px-2 py-0.5 rounded-full bg-fb-50 text-fb-700 font-medium normal-case">{{ $topic->category ?? $topic->ml_label }}</span>
                     @endif
                 </p>
             </div>
@@ -37,7 +37,7 @@
                             @csrf
                             <input type="hidden" name="parent_post_id" value="{{ $post->id }}">
                             <input type="text" name="body" placeholder="Write a reply..." class="flex-1 rounded-md border-gray-300 text-sm" required>
-                            <button class="px-3 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">Reply</button>
+                            <button class="px-3 py-2 bg-fb-600 text-white text-sm rounded-md hover:bg-fb-700">Reply</button>
                         </form>
                     @endif
                 </div>

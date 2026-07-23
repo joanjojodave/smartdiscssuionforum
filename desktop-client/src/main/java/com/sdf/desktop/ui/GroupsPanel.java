@@ -39,8 +39,8 @@ public class GroupsPanel extends JPanel {
 
         topicList.setCellRenderer((list, value, index, isSelected, hasFocus) -> {
             StringBuilder sb = new StringBuilder("<html>").append(escape(value.getString("title")));
-            if (value.optBoolean("has_unanswered", false)) sb.append(" <font color='red'>[unanswered]</font>");
-            if (value.optBoolean("is_resolved", false)) sb.append(" <font color='green'>[resolved]</font>");
+            if (value.optBoolean("has_unanswered", false)) sb.append(" <font color='#B91C1C'>[unanswered]</font>");
+            if (value.optBoolean("is_resolved", false)) sb.append(" <font color='#15803D'>[resolved]</font>");
             sb.append("<br><small>").append(value.optString("category", "")).append(" &middot; ")
                     .append(value.optInt("posts_count", 0)).append(" post(s)</small></html>");
             JLabel l = new JLabel(sb.toString());
@@ -85,6 +85,8 @@ public class GroupsPanel extends JPanel {
         newTopicButton.addActionListener(e -> newTopic());
 
         Brand.primary(newTopicButton);
+        Brand.secondary(joinButton);
+        Brand.secondary(rulesButton);
         setButtonsEnabled(false);
     }
 

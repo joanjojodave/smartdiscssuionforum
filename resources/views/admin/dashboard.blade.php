@@ -17,7 +17,7 @@
                             @foreach ($groupStats as $row)
                                 <tr>
                                     <td class="py-1">
-                                        <a href="{{ route('admin.groups.stats', $row['group']) }}" class="text-indigo-700 hover:underline">{{ $row['group']->name }}</a>
+                                        <a href="{{ route('admin.groups.stats', $row['group']) }}" class="text-fb-700 hover:underline">{{ $row['group']->name }}</a>
                                     </td>
                                     <td>{{ $row['posts'] }}</td>
                                     <td>{{ $row['replies'] }}</td>
@@ -86,7 +86,7 @@
                         <tbody class="divide-y">
                             @forelse ($flagged as $post)
                                 <tr>
-                                    <td class="py-1"><a href="{{ route('topics.show', $post->topic_id) }}#post-{{ $post->id }}" class="text-indigo-700 hover:underline">{{ $post->topic->title }}</a></td>
+                                    <td class="py-1"><a href="{{ route('topics.show', $post->topic_id) }}#post-{{ $post->id }}" class="text-fb-700 hover:underline">{{ $post->topic->title }}</a></td>
                                     <td>{{ $post->author->name }}</td>
                                     <td class="space-x-2">
                                         <form method="POST" action="{{ route('admin.posts.restore', $post) }}" class="inline">
@@ -108,8 +108,8 @@
             </div>
 
             <div class="flex gap-4">
-                <a href="{{ route('admin.members') }}" class="text-sm text-indigo-700 underline">Warn or restrict any member →</a>
-                <a href="{{ route('admin.users') }}" class="text-sm text-indigo-700 underline">Manage user roles →</a>
+                <a href="{{ route('admin.members') }}" class="text-sm text-fb-700 underline">Warn or restrict any member →</a>
+                <a href="{{ route('admin.users') }}" class="text-sm text-fb-700 underline">Manage user roles →</a>
             </div>
         </div>
     </div>

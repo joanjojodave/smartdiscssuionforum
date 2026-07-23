@@ -15,7 +15,7 @@
 
                 <form method="POST" action="{{ route('groups.rules.decide', $group) }}" class="flex gap-3">
                     @csrf
-                    <button name="decision" value="agree" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">I agree - join the group</button>
+                    <button name="decision" value="agree" class="px-4 py-2 bg-fb-600 text-white rounded-md hover:bg-fb-700">I agree - join the group</button>
                     <button name="decision" value="decline" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">I decline</button>
                 </form>
             </div>

@@ -8,7 +8,7 @@
             @forelse ($quizzes as $quiz)
                 <div class="bg-white shadow-sm rounded-lg p-5 flex items-center justify-between">
                     <div>
-                        <a href="{{ route('quizzes.show', $quiz) }}" class="font-semibold text-indigo-700 hover:underline">{{ $quiz->title }}</a>
+                        <a href="{{ route('quizzes.show', $quiz) }}" class="font-semibold text-fb-700 hover:underline">{{ $quiz->title }}</a>
                         <p class="text-xs text-gray-400 mt-1">
                             {{ $quiz->group->name }} &middot; starts {{ $quiz->start_at->toDayDateTimeString() }} &middot; {{ $quiz->duration_minutes }} minutes
                             @if ($quiz->target_category) &middot; category: {{ $quiz->target_category }} @endif
